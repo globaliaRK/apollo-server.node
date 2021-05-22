@@ -1,0 +1,76 @@
+type File {
+    filename: String!
+    mimetype: String!
+    encoding: String
+}
+
+type User {
+    _id: ID
+    firstName: String!
+    mobileNumber: String!
+    email: String
+    myPost:[Post!]
+    myComment:[Comment!]
+}
+
+type Comment {
+    commentTitle: String!,
+    commentBody: String!,
+    postID: Post
+}
+
+type Post {
+    _id:ID
+    postTitle: String!,
+    postMessage: String!,
+    postImg: String!
+    postComment: [Comment!]
+}
+
+type Token {
+    _id: ID!
+    Token: String!
+    ExpireTime: String!
+}
+
+input user {
+    _id: ID
+    firstName: String!
+    mobileNumber: String!
+    email: String!
+    password: String!
+}
+
+input comment {
+    _id: ID
+    commentTitle: String!,
+    commentBody: String!,
+    postID: String!
+}
+
+
+input post {
+    _id:ID
+    postTitle: String!,
+    postMessage: String!,
+    postImg: String!,
+}
+
+type Query {
+    Users: [User]
+    Post: [Post!]
+    Comment: [Comment!]
+    getMyInfo: User!
+    loginUser(email: String!, password: String!): Token!
+}
+
+
+type Mutation {
+    setUser(user: user!): Token!
+    addPost(post: post!): Post!
+    addComment(comment: comment!): Comment
+}
+type schema {
+    Query: Query
+    Mutation: Mutation
+}
